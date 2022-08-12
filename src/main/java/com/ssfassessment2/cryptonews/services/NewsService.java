@@ -1,9 +1,11 @@
 package com.ssfassessment2.cryptonews.services;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +14,15 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.ssfassessment2.cryptonews.models.NewsArticles;
+import com.ssfassessment2.cryptonews.repository.NewsArticleRepository;
 
 @Service
 public class NewsService {
 
     private static final Logger logger = LoggerFactory.getLogger(NewsService.class);
-    
+    @Autowired
+    private NewsArticleRepository repo;
+
     @Value("${apiKey}")
     private String apiKey;
 
@@ -46,15 +51,15 @@ public class NewsService {
         return Optional.empty();
     }
 
-    public Optional<NewsArticles> getNewsArticleById(Integer id) {
+    public Optional<NewsArticles> getNewsArticleById(Integer id) throws IOException {
         return getNewsArticleById(id.toString());
     }
 
-    public Optional<NewsArticles> getNewsArticleById(String id) {
-        String httpRespose = boardgameRepo.get(id);
-        if (null == httpRespose)
+    public Optional<NewsArticles> getNewsArticleById(String id) throws IOException {
+        String httpResponse = repo.getIdFromRepo(id);
+        if (null == httpResponse)
             return Optional.empty();
 
-        return Optional.of(NewsArticles.createJson(httpRespose));
+        return Optional.of(NewsArticles.createJson(httpResponse));
     }
 }
