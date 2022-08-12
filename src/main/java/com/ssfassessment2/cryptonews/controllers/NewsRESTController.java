@@ -1,5 +1,6 @@
 package com.ssfassessment2.cryptonews.controllers;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -28,7 +29,7 @@ public class NewsRESTController {
     private static final Logger logger = LoggerFactory.getLogger(NewsArticles.class);
 
     @GetMapping(value = "{id}")
-    public ResponseEntity<String> getNewsArticle(@PathVariable (name="id") String id) {
+    public ResponseEntity<String> getNewsArticle(@PathVariable (name="id") String id) throws IOException {
         Optional<NewsArticles> article = newsService.getNewsArticleById(id);
 
         if (article.isEmpty()) {
