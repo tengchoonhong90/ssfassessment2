@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.google.gson.Gson;
 import com.ssfassessment2.cryptonews.models.NewsArticles;
 import com.ssfassessment2.cryptonews.repository.NewsArticleRepository;
 
@@ -42,8 +41,6 @@ public class NewsService {
             response = restTemplate.exchange(newsArticlesUrl, HttpMethod.GET, null, String.class);
 
             NewsArticles responseToJson = NewsArticles.createJson(response.getBody());
-            Gson gson = new Gson();
-            // responseToJson = gson.fromJson(responseToJson, NewsArticles.class)
             
 
             return Optional.of(responseToJson);

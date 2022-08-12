@@ -3,9 +3,14 @@ package com.ssfassessment2.cryptonews.models;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.util.Collection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
@@ -83,8 +88,14 @@ public class NewsArticles {
             JsonReader r = Json.createReader(is);
             JsonObject o = r.readObject();
             JsonValue data = o.get("Data");
+            Gson gson = new Gson();
 
-            logger.info("data === " + data);
+            Type collectionType = new TypeToken<Collection<NewsArticles>>(){}.getType();
+            Collection<NewsArticles> art = gson.fromJson(data.toString(), collectionType);
+
+            logger.info("data === " + art.toArray()[1]);
+            
+            
         } 
 
         return payload;
