@@ -85,8 +85,9 @@ public class NewsArticles {
             JsonValue data = o.get("Data");
 
             logger.info("data === " + data.toString());
-            return (payload = (NewsArticles) data);
         } 
+
+        return payload;
     }
 
     public static NewsArticles createJson(JsonObject jObj) {
