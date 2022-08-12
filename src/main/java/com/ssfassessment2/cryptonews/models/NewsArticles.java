@@ -3,13 +3,11 @@ package com.ssfassessment2.cryptonews.models;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jakarta.json.Json;
-import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
 
@@ -83,7 +81,7 @@ public class NewsArticles {
         try(InputStream is = new ByteArrayInputStream(json.getBytes())) {
             JsonReader r = Json.createReader(is);
             JsonObject o = r.readObject();
-            JsonArray array = o.asJsonArray();
+            // JsonArray array = o.asJsonArray();
 
             logger.info(">>>>>>>" + o.toString());
             // logger.info("array >>>>>> " + array);
