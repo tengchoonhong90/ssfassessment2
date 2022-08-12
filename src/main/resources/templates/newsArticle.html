@@ -8,7 +8,22 @@
 </head>
 <body>
     <h1>news article</h1>
-    <div th:object = "${response}">
+    <form action="" method="post">
+    <button type="submit" value="Save">Save</button>
+
+    <div th:each = "article: ${articles}">
+        <tr>
+            <td th:text="@{article.id}" ></td>
+            <td th:text="@{article.publishOn}" ></td>
+            <td th:text="@{article.newsTitle}" ></td>
+            <td th:href="@{article.newsUrl}" ></td>
+            <td><img th:src="@{article.newsImageUrl}" /></td>
+            <td th:text="@{article.newsBody}" ></td>
+            <td th:text="@{article.newsTag}" ></td>
+            <td th:text="@{article.newsCategories}" ></td>
+            <input type="checkbox" name="checkbox" th:value="${article.id}"/>
+        </tr>
     </div>
+    </form>
 </body>
 </html>

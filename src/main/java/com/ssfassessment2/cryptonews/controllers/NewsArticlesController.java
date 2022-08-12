@@ -24,7 +24,7 @@ public class NewsArticlesController {
         NewsArticles request = requestArticles;
         NewsArticles response = newsService.getArticles(request).get();
 
-        model.addAttribute("response", response);
+        model.addAttribute("articles", response);
         
         return "newsArticle";
     }

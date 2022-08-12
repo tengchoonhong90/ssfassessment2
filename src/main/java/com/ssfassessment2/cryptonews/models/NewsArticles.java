@@ -84,7 +84,7 @@ public class NewsArticles {
             JsonObject o = r.readObject();
             JsonValue data = o.get("Data");
 
-            logger.info("data === " + data.toString());
+            logger.info("data === " + data);
         } 
 
         return payload;
