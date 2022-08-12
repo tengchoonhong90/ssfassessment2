@@ -8,9 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jakarta.json.Json;
-import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
+import jakarta.json.JsonValue;
 
 public class NewsArticles {
     
@@ -82,12 +82,38 @@ public class NewsArticles {
         try(InputStream is = new ByteArrayInputStream(json.getBytes())) {
             JsonReader r = Json.createReader(is);
             JsonObject o = r.readObject();
-            JsonArray array = o.getJsonArray("type");
+            JsonValue data = o.get("Data");
 
-            logger.info(">>>>>>>" + o.toString());
-            logger.info(">>" + array);            
-        }
-        return payload; 
+            logger.info("data === " + data.toString());
+            return (payload = (NewsArticles) data);
+        } 
+    }
+
+    public static NewsArticles createJson(JsonObject jObj) {
+        NewsArticles newsArticle = new NewsArticles();
+        newsArticle.setId(jObj.getInt("id"));
+        newsArticle.setNewsTitle(jObj.getString("title"));
+        newsArticle.setNewsBody(jObj.getString("body"));
+        newsArticle.setPublishedOn(jObj.getInt("published_on"));
+        newsArticle.setNewsUrl(jObj.getString("url"));
+        newsArticle.setNewsImageUrl(jObj.getString("imageurl"));
+        newsArticle.setNewsTag(jObj.getString("tags"));
+        newsArticle.setNewsCategories(jObj.getString("categories"));
+
+        return newsArticle;
+    }
+
+    public JsonObject toJson() {
+        return Json.createObjectBuilder()
+            .add("id", id)
+            .add("title", newsTitle)
+            .add("body", newsBody)
+            .add("published_on", publishedOn)
+            .add("url", newsUrl)
+            .add("imageurl", newsImageUrl)
+            .add("tags", newsTag)
+            .add("categories", newsCategories)
+            .build();
     }
 
 }

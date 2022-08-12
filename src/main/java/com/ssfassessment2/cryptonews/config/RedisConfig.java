@@ -27,7 +27,7 @@ public class RedisConfig {
     @Value("${spring.redis.password}")
     private String redisPassword;
 
-    @Bean("redisCrypto")
+    @Bean("redisArticles")
     @Scope("singleton")
     public RedisTemplate<String, String> redisTemplate() {
         RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
@@ -43,13 +43,13 @@ public class RedisConfig {
         final JedisConnectionFactory jedisFac = new JedisConnectionFactory(config, jedisClient);
         jedisFac.afterPropertiesSet();
         
-        RedisTemplate<String, String> template = new RedisTemplate<String, String>();
-        template.setConnectionFactory(jedisFac);
-        template.setKeySerializer(new StringRedisSerializer());
-        template.setValueSerializer(jackson2JsonRedisSerializer);
-        template.setHashKeySerializer(template.getKeySerializer());
-        template.setHashValueSerializer(template.getValueSerializer());
-        return template;
+        RedisTemplate<String, String> redisTemplate = new RedisTemplate<String, String>();
+        redisTemplate.setConnectionFactory(jedisFac);
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
+        redisTemplate.setHashKeySerializer(redisTemplate.getKeySerializer());
+        redisTemplate.setHashValueSerializer(redisTemplate.getValueSerializer());
+        return redisTemplate;
 
     }    
     

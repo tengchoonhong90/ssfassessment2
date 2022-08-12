@@ -34,7 +34,9 @@ public class NewsService {
 
         try{
             response = restTemplate.exchange(newsArticlesUrl, HttpMethod.GET, null, String.class);
+
             NewsArticles responseToJson = NewsArticles.createJson(response.getBody());
+
             return Optional.of(responseToJson);
         } catch (Exception exception) {
             logger.error(exception.getMessage());
@@ -44,4 +46,15 @@ public class NewsService {
         return Optional.empty();
     }
 
+    public Optional<NewsArticles> getNewsArticleById(Integer id) {
+        return getNewsArticleById(id.toString());
+    }
+
+    public Optional<NewsArticles> getNewsArticleById(String id) {
+        String httpRespose = boardgameRepo.get(id);
+        if (null == httpRespose)
+            return Optional.empty();
+
+        return Optional.of(NewsArticles.createJson(httpRespose));
+    }
 }
