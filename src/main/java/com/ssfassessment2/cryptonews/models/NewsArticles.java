@@ -4,11 +4,13 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.sql.Array;
 import java.util.Collection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -92,8 +94,10 @@ public class NewsArticles {
 
             Type collectionType = new TypeToken<Collection<NewsArticles>>(){}.getType();
             Collection<NewsArticles> art = gson.fromJson(data.toString(), collectionType);
+            Object placeholder = art.toArray()[0];
+            
+            logger.info("data === " + placeholder );
 
-            logger.info("data === " + art.toArray()[1]);
             
             
         } 
