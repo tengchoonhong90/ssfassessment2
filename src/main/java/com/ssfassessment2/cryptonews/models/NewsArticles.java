@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jakarta.json.Json;
+import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
 
@@ -81,11 +82,10 @@ public class NewsArticles {
         try(InputStream is = new ByteArrayInputStream(json.getBytes())) {
             JsonReader r = Json.createReader(is);
             JsonObject o = r.readObject();
-            // JsonArray array = o.asJsonArray();
+            JsonArray array = o.getJsonArray("type");
 
             logger.info(">>>>>>>" + o.toString());
-            // logger.info("array >>>>>> " + array);
-            
+            logger.info(">>" + array);            
         }
         return payload; 
     }
